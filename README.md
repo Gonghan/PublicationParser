@@ -8,8 +8,7 @@ PublicationParser
 - JavaEE + MySQL + tomcat 6.0
 - Dataset
 
-	You can find the data here: http://dblp.uni-trier.de/xml/
-- To be continued.
+    You can find the data here: http://dblp.uni-trier.de/xml/
 
 ## 2. Project structure
 - Model 
@@ -22,14 +21,25 @@ PublicationParser
     
 	**DB_helper**: helps to handle the operations on Mysql.    
     
+    **article**: shows the information about the articles like title, date, key, booktitle. 
+    
+    ** coauthor**: one article has many articles, and several coauthers can link to the same article.
 
 
 - Service
 
-	to be continued
+	**coauthorServlet**: this severlet get two names from users' input and check whether they are valid and then go to authors chain page. Only for GET.
+    
+    **articlesServlet**: this page can get the articles related to a given author. Only for GET.
 - UI
 
-	to be continued
+	**index.jsp**: the main entry of the website. Users are required to input two names of the authors. After that, click the submit button and go to the next page.
+    
+    **error.jsp**: if the inputs from the users are not valid, redirect to this page and guide the user to go back to the index page.
+    
+    **authors.jsp**: this page shows the chain of the two authors. Also users can view more information about one of the authors by clicking the link.
+    
+    **articles.jsp**: shows the articles written by a given author.
 
 
 
