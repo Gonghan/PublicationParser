@@ -1,4 +1,4 @@
-package com.gonghan.model;
+package relatedWorks;
 
 import java.util.Collection;
 import java.util.HashSet;

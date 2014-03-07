@@ -1,4 +1,4 @@
-package com.gonghan.model;
+package relatedWorks;
 
 import java.io.IOException;
 import java.net.URL;
