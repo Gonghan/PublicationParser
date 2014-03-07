@@ -4,10 +4,57 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Article {
-	static int id = 1000;
+
+	static int counter = 1000;
+	int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	String mkey;
 	String date;
 	String title;
+	public static int getCounter() {
+		return counter;
+	}
+
+	public String getMkey() {
+		return mkey;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getPages() {
+		return pages;
+	}
+
+	public String getBooktitle() {
+		return booktitle;
+	}
+
+	public List<String> getAuthors() {
+		return authors;
+	}
+
+	public String getSql() {
+		return sql;
+	}
+
+	public String getAuthorsql() {
+		return authorsql;
+	}
+
 	String pages;
 	String booktitle;
 	List<String> authors;
@@ -43,8 +90,9 @@ public class Article {
 	}
 
 	private String toSQLString() {
-		String sql = String.format("(%d,%s,%s,%s,%s,%s),", id, reStr(mkey),
-				reStr(date), reStr(title), reStr(pages), reStr(booktitle));
+		String sql = String.format("(%d,%s,%s,%s,%s,%s),", counter,
+				reStr(mkey), reStr(date), reStr(title), reStr(pages),
+				reStr(booktitle));
 		return sql;
 	}
 
@@ -52,7 +100,7 @@ public class Article {
 		if (str == null || str.isEmpty()) {
 			return "NULL";
 		} else {
-			str=str.replace("'", "\"");
+			str = str.replace("'", "\"");
 			return String.format("'%s'", str);
 		}
 	}
@@ -60,7 +108,7 @@ public class Article {
 	private String toAuthorSQL() {
 		StringBuffer sql = new StringBuffer();
 		for (String author : authors) {
-			sql.append(String.format("(NULL,%d,%s),", id, reStr(author)));
+			sql.append(String.format("(NULL,%d,%s),", counter, reStr(author)));
 		}
 		return sql.toString();
 	}
@@ -68,15 +116,22 @@ public class Article {
 	public void update() {
 		auto_increment();
 		this.sql = this.toSQLString();
-//		System.out.println("----------------------");
-//		System.out.println(sql);
-//		System.out.println("----------------------");
+		// System.out.println("----------------------");
+		// System.out.println(sql);
+		// System.out.println("----------------------");
 		this.authorsql = this.toAuthorSQL();
-		
+
 	}
 
 	public void auto_increment() {
-		Article.id++;
+		Article.counter++;
 	}
 
+	@Override
+	public String toString() {
+		return "Article [authors=" + authors + ", authorsql=" + authorsql
+				+ ", booktitle=" + booktitle + ", date=" + date + ", id=" + id
+				+ ", mkey=" + mkey + ", pages=" + pages + ", sql=" + sql
+				+ ", title=" + title + "]";
+	}
 }

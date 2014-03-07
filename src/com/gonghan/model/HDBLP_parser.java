@@ -39,7 +39,7 @@ public class HDBLP_parser {
 class BHTSAXHandler extends DefaultHandler {
 
 	String content = null;
-	final int LIST_SIZE = 50;
+	final int LIST_SIZE = 5000;
 	List<Article> list = new ArrayList<Article>();
 	Article article;
 

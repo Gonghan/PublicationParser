@@ -1,6 +1,7 @@
 package com.gonghan.model;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DB_helper {
@@ -69,6 +70,32 @@ public class DB_helper {
 		}
 	}
 
+	public static void getArticlesFromName(String name,ArrayList<Article>articles,ArrayList<String> coauthers) {
+		try {
+			if (conn == null || conn.isClosed()) {
+				init();
+			}
+			if (statement == null || statement.isClosed()) {
+				statement = conn.createStatement();
+			}
+			String sql=String.format(SQL_Operations.GetArticlesFromOneAuthorName, name);
+			System.out.println(sql);
+			ResultSet rs=statement.executeQuery(sql);
+			while(rs.next()){
+				Article tmpa=new Article();
+				tmpa.setBooktitle(rs.getString("booktitle"));
+				tmpa.setDate(rs.getString("mdate"));
+				tmpa.setMkey(rs.getString("mkey"));
+				tmpa.setId(rs.getInt("id"));
+				tmpa.setPages(rs.getString("pages"));
+				tmpa.setTitle(rs.getString("title"));
+				articles.add(tmpa);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void addArticlesIntoDatabase(List<Article> alist) {
 		StringBuffer sb = new StringBuffer("INSERT INTO soc.articles VALUES");
 		StringBuffer sb2 = new StringBuffer("INSERT INTO soc.coauthors VALUES");
@@ -86,9 +113,7 @@ public class DB_helper {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			sb2.deleteCharAt(sb2.length() - 1);
-			// System.out.println(sb.toString());
-			// System.out.println(sb2.toString());
-
+			
 			statement.execute(sb.toString());
 			statement.execute(sb2.toString());
 			statement.close();

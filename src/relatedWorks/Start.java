@@ -1,19 +1,23 @@
 package relatedWorks;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.ArrayList;
+
+import com.gonghan.model.Article;
+import com.gonghan.model.MyPerson;
 
 public class Start {
 
-	private static void path(Person p1, Person p2) {
+	public static Person[] path(String s1,String s2){
+		return path(Person.create(s1,toURLPT(s1)),Person.create(s2,toURLPT(s2)));
+	}
+	private static Person[] path(Person p1, Person p2) {
 		CoauthorPath cp = new CoauthorPath(p1, p2);
 		Person path[] = cp.getPath();
 		int i;
 		System.out.println("# of Person objects = " + Person.numberOfPersons());
 		if (path == null) {
 			System.out.println("<" + p1 + "," + p2 + "> not connected");
-			return;
+			return null;
 		}
 
 		for (i = 0; i < path.length; i++) {
@@ -22,46 +26,40 @@ public class Start {
 					+ (path[i].getPersonRecord() == null ? " " : "*"));
 		}
 		System.out.println();
-	}
-
-	public void readFile(String filename) {
-		Scanner scanner;
-		try {
-			scanner = new Scanner(new File(filename));
-			String line = scanner.next();
-			int counter=0;
-			while (scanner.hasNextLine()) {
-				//System.out.println(line);
-				line = scanner.nextLine();
-				counter++;
-			}
-			System.out.println(counter);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		return path;
 	}
 
 	public static void main(String[] args) {
-		new Start().readFile("F:/SOC/hdblp.xml");
-		
+
 		Person p1, p2;
+
 		p1 = Person.create("Michael Ley", "l/Ley:Michael");
-		Publication pubs[] = p1.getPublications();
-		for (Publication p : pubs) {
-			// System.out.println(p.getKey());
-		}
 		p2 = Person.create("Peter Sturm", "s/Sturm:Peter");
 		path(p1, p2);
-		p2 = Person.create("Bernd Walter", "w/Walter:Bernd");
-		path(p1, p2);
-		p2 = Person.create("Alan T. Murray", "m/Murray:Alan_T=");
-		path(p1, p2);
-		p2 = Person.create("B. Vogel", "v/Vogel:B=");
-		path(p1, p2);
-		p2 = Person.create("Alan M. Turing", "t/Turing:Alan_M=");
-		path(p1, p2);
-
+		MyPerson mp = new MyPerson(p1.getName());
+		ArrayList<Article> list = mp.getArticles();
+		for (Article a : list) {
+			System.out.println(a.toString());
+		}
+		// p2 = Person.create("Bernd Walter", "w/Walter:Bernd");
+		// path(p1, p2);
+		// p2 = Person.create("Alan T. Murray", "m/Murray:Alan_T=");
+		// path(p1, p2);
+		// p2 = Person.create("B. Vogel", "v/Vogel:B=");
+		// path(p1, p2);
+		// p2 = Person.create("Alan M. Turing", "t/Turing:Alan_M=");
+		// path(p1, p2);
 	}
 
+	private static String toURLPT(String s) {
+		s = s.replace(".", "=");
+		String strs[] = s.split(" ");
+		String last = strs[strs.length - 1];
+		String first = strs[0];
+		if (strs.length == 3) {
+			first = first + "_" + strs[1];
+		}
+		char firstLetter = Character.toLowerCase(last.charAt(0));
+		return firstLetter + "/" + last + ":" + first;
+	}
 }

@@ -34,7 +34,9 @@ public class Person {
         coauthorsLoaded = false;
         labelvalid = false;
     }
-    
+    public String getName(){
+    	return name;
+    }
     /*
      * Create a new Person object if necessary.
      */
