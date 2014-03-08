@@ -23,7 +23,7 @@ PublicationParser
     
     **article**: shows the information about the articles like title, date, key, booktitle. 
     
-    ** coauthor**: one article has many articles, and several coauthers can link to the same article.
+    **coauthor**: one article has many articles, and several coauthers can link to the same article.
 
 
 - Service
