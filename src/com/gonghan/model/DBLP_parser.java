@@ -19,7 +19,8 @@ public class DBLP_parser {
 		long start = System.currentTimeMillis();
 		init();
 		long time = System.currentTimeMillis() - start;
-		System.out.println(time / 1000 + " seconds.");
+		//System.out.println(time / 1000 + " seconds.");
+		//Logger.log("time",time / 1000 + " seconds.")
 	}
 
 	private void init() {
