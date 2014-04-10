@@ -15,6 +15,7 @@ public class Publication {
 		return mdate;
 	}
 
+	//rename or explain mdate
 	public void setMdate(String mdate) {
 		this.mdate = mdate;
 	}
