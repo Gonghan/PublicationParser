@@ -13,7 +13,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 public class DBLP_parser {
 
-	private final static String filename = "F:/SOC/dblp.xml";
+	private final static String filename = "../SOC/dblp.xml";
 
 	public DBLP_parser() {
 		long start = System.currentTimeMillis();
