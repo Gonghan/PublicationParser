@@ -35,6 +35,10 @@ public class DB_helper {
 		}
 	}
 
+	/**
+	 *  Source: http://www.mkyong.com/jdbc/how-to-connect-to-mysql-with-jdbc-driver-java/
+	 *  
+	 */
 	private static void init() {
 
 		try {
