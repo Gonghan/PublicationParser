@@ -36,8 +36,9 @@ public class DB_helper {
 	}
 
 	/**
-	 *  Source: http://www.mkyong.com/jdbc/how-to-connect-to-mysql-with-jdbc-driver-java/
-	 *  Use JDBC to connect to the database
+	 * Source:
+	 * http://www.mkyong.com/jdbc/how-to-connect-to-mysql-with-jdbc-driver-java/
+	 * Use JDBC to connect to the database
 	 */
 	private static void init() {
 
@@ -83,6 +84,21 @@ public class DB_helper {
 		}
 	}
 
+	/**
+	 * First, this function gets the name of the author. Then search all related
+	 * articles and coauthors. Save the articles and coauthors into the
+	 * arrayList passed by the parameters.
+	 * 
+	 * @param name
+	 *            : the name of the author from the user's input
+	 * @param articles
+	 *            : the articles which is written by the author
+	 * @param coauthers
+	 *            : the coauthers are the people working on the same articles
+	 *            with the author
+	 * @exception :1. SQL syntax exception, wrong sql statement. 
+	 * 			   2. Database connection exception, the database shuts down unexpectedly.
+	 */
 	public static void getArticlesFromName(String name,
 			ArrayList<Article> articles, ArrayList<String> coauthers) {
 		try {
@@ -106,7 +122,7 @@ public class DB_helper {
 				tmpa.setTitle(rs.getString("title"));
 				articles.add(tmpa);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
