@@ -4,6 +4,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class contains the basic operations on the database. Inside this class,
+ * createTable can create the needed table if not exists. Two add* functions can
+ * insert the result from XML into database.
+ * 
+ * @author Gonghan
+ * 
+ * 
+ */
 public class DB_helper {
 
 	private static Connection conn;
@@ -70,7 +79,8 @@ public class DB_helper {
 		}
 	}
 
-	public static void getArticlesFromName(String name,ArrayList<Article>articles,ArrayList<String> coauthers) {
+	public static void getArticlesFromName(String name,
+			ArrayList<Article> articles, ArrayList<String> coauthers) {
 		try {
 			if (conn == null || conn.isClosed()) {
 				init();
@@ -78,11 +88,12 @@ public class DB_helper {
 			if (statement == null || statement.isClosed()) {
 				statement = conn.createStatement();
 			}
-			String sql=String.format(SQL_Operations.GetArticlesFromOneAuthorName, name);
+			String sql = String.format(
+					SQL_Operations.GetArticlesFromOneAuthorName, name);
 			System.out.println(sql);
-			ResultSet rs=statement.executeQuery(sql);
-			while(rs.next()){
-				Article tmpa=new Article();
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				Article tmpa = new Article();
 				tmpa.setBooktitle(rs.getString("booktitle"));
 				tmpa.setDate(rs.getString("mdate"));
 				tmpa.setMkey(rs.getString("mkey"));
@@ -113,7 +124,7 @@ public class DB_helper {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			sb2.deleteCharAt(sb2.length() - 1);
-			
+
 			statement.execute(sb.toString());
 			statement.execute(sb2.toString());
 			statement.close();
