@@ -15,16 +15,11 @@ public class DBLP_parser {
 
 	private final static String filename = "F:/SOC/dblp.xml";
 
-	public static void main(String args[]) {
-		//new DBLP_parser();
-		// d.init();
-	}
-
 	public DBLP_parser() {
-		long start=System.currentTimeMillis();
+		long start = System.currentTimeMillis();
 		init();
-		long time=System.currentTimeMillis()-start;
-		System.out.println(time/1000+" seconds.");
+		long time = System.currentTimeMillis() - start;
+		System.out.println(time / 1000 + " seconds.");
 	}
 
 	private void init() {
@@ -49,7 +44,7 @@ class SAXHandler extends DefaultHandler {
 	List<Publication> pubList = new ArrayList<Publication>();
 	String content = null;
 	Publication publication = null;
-	final int LIST_SIZE=5000;
+	final int LIST_SIZE = 5000;
 
 	public void startElement(String namespaceURI, String localName,
 			String rawName, Attributes atts) throws SAXException {
@@ -77,7 +72,7 @@ class SAXHandler extends DefaultHandler {
 			publication.setBooktitle(content);
 		} else if (rawName.equals("www")) {
 			pubList.add(publication);
-			if(pubList.size()==LIST_SIZE){
+			if (pubList.size() == LIST_SIZE) {
 				DB_helper.addPublicationsIntoDatabase(pubList);
 				pubList.clear();
 			}
